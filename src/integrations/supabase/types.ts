@@ -14,7 +14,72 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      profiles: {
+        Row: {
+          created_at: string
+          id: string
+          role: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      schedule: {
+        Row: {
+          arrival_time: string
+          created_at: string
+          departure_time: string
+          destination: string
+          id: string
+          origin: string
+          platform: number
+          status: Database["public"]["Enums"]["schedule_status"]
+          transport_id: string
+          type: Database["public"]["Enums"]["transport_type"]
+          updated_at: string
+        }
+        Insert: {
+          arrival_time: string
+          created_at?: string
+          departure_time: string
+          destination: string
+          id?: string
+          origin: string
+          platform: number
+          status?: Database["public"]["Enums"]["schedule_status"]
+          transport_id: string
+          type: Database["public"]["Enums"]["transport_type"]
+          updated_at?: string
+        }
+        Update: {
+          arrival_time?: string
+          created_at?: string
+          departure_time?: string
+          destination?: string
+          id?: string
+          origin?: string
+          platform?: number
+          status?: Database["public"]["Enums"]["schedule_status"]
+          transport_id?: string
+          type?: Database["public"]["Enums"]["transport_type"]
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +88,8 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      schedule_status: "on_time" | "delayed" | "cancelled"
+      transport_type: "bus" | "train"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +216,9 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      schedule_status: ["on_time", "delayed", "cancelled"],
+      transport_type: ["bus", "train"],
+    },
   },
 } as const
