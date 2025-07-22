@@ -1,17 +1,16 @@
+
 import { useState } from 'react';
 import { useSchedules } from '@/hooks/useSchedules';
 import { useAuth } from '@/hooks/useAuth';
-import { Schedule } from '@/types/schedule';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { LogOut, Train, Bus, Search, User } from 'lucide-react';
+import { LogOut, Train, Bus, Search, Eye } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export default function UserPage() {
-  const { schedules, loading, updateSchedule } = useSchedules();
+  const { schedules, loading } = useSchedules();
   const { signOut, user } = useAuth();
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -22,11 +21,7 @@ export default function UserPage() {
     schedule.destination.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const handleStatusChange = async (scheduleId: string, newStatus: Schedule['status']) => {
-    await updateSchedule(scheduleId, { status: newStatus });
-  };
-
-  const getStatusColor = (status: Schedule['status']) => {
+  const getStatusColor = (status: string) => {
     switch (status) {
       case 'on_time':
         return 'bg-green-500';
@@ -53,7 +48,7 @@ export default function UserPage() {
       <div className="mb-8">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-4xl font-bold text-primary mb-2">Transport Schedule</h1>
+            <h1 className="text-4xl font-bold text-primary mb-2">Real-Time Transport Status Tracker</h1>
             <p className="text-muted-foreground">
               Welcome, {user?.email}
             </p>
@@ -99,8 +94,8 @@ export default function UserPage() {
       <Card>
         <CardHeader>
           <CardTitle className="text-2xl flex items-center gap-2">
-            <User className="h-6 w-6" />
-            Schedule Results ({filteredSchedules.length})
+            <Eye className="h-6 w-6" />
+            Transport Status ({filteredSchedules.length})
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -156,26 +151,16 @@ export default function UserPage() {
                         </div>
                       </div>
 
-                      {/* Status Control */}
+                      {/* Status Display */}
                       <div className="space-y-2">
                         <div className="text-sm text-muted-foreground">Status</div>
                         <div className="space-y-2">
                           <Badge className={`${getStatusColor(schedule.status)} text-white`}>
                             {schedule.status.replace('_', ' ').toUpperCase()}
                           </Badge>
-                          <Select
-                            value={schedule.status}
-                            onValueChange={(value) => handleStatusChange(schedule.id, value as Schedule['status'])}
-                          >
-                            <SelectTrigger className="w-full">
-                              <SelectValue placeholder="Change status" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="on_time">On Time</SelectItem>
-                              <SelectItem value="delayed">Delayed</SelectItem>
-                              <SelectItem value="cancelled">Cancelled</SelectItem>
-                            </SelectContent>
-                          </Select>
+                          <div className="text-xs text-muted-foreground">
+                            Real-time status
+                          </div>
                         </div>
                       </div>
                     </div>
