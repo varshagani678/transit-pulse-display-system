@@ -1,3 +1,4 @@
+
 import { useAuth } from '@/hooks/useAuth';
 import { Navigate, useLocation } from 'react-router-dom';
 import { Train } from 'lucide-react';
@@ -22,7 +23,7 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
   }
 
   if (!user) {
-    return <Navigate to="/auth" state={{ from: location }} replace />;
+    return <Navigate to="/auth/user" state={{ from: location }} replace />;
   }
 
   return <>{children}</>;
