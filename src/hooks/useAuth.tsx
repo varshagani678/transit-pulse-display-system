@@ -43,7 +43,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         return;
       }
 
-      setProfile(data);
+      // Ensure the profile includes the email field
+      const profileWithEmail = {
+        ...data,
+        email: data.email || user?.email || ''
+      };
+
+      setProfile(profileWithEmail);
     } catch (error) {
       console.error('Error fetching profile:', error);
     }
