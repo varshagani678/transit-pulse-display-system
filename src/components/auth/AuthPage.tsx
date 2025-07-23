@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
@@ -44,7 +43,7 @@ export default function AuthPage() {
     e.preventDefault();
     setLoading(true);
 
-    const { error } = await signUp(email, password, 'user');
+    const { error } = await signUp(email, password);
     
     if (error) {
       toast({
