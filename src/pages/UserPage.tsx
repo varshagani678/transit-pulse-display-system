@@ -48,7 +48,7 @@ export default function UserPage() {
       <div className="mb-8">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-4xl font-bold text-primary mb-2">Real-Time Transport Status Tracker</h1>
+            <h1 className="text-4xl font-bold text-primary mb-2">Transport Status Tracker</h1>
             <p className="text-muted-foreground">
               Welcome, {user?.email}
             </p>
