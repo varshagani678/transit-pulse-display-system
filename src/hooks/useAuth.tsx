@@ -42,10 +42,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       return null;
     }
 
-    // Ensure email is included in the profile
+    // Ensure email is included in the profile by using the auth user's email
     const profileWithEmail = {
       ...data,
-      email: data.email || userEmail
+      email: userEmail
     };
 
     setUserProfile(profileWithEmail);
